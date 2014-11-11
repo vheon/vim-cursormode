@@ -18,8 +18,7 @@ function! cursormode#SetCursorColorFor(mode)
       let escape = printf(s:escape_template, s:escape_prefix, color)
       let command = printf('printf %s > /dev/tty', escape)
 
-      call system(command)
-      redraw!
+      silent call system(command)
     endif
 endfunction
 
