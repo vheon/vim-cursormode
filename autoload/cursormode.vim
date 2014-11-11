@@ -51,10 +51,14 @@ function! cursormode#LocalActivate()
 endfunction
 
 function! s:activate(on)
-  execute 'let' a:on "= substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')"
+  call s:deactivate(a:on)
   execute 'let' a:on ".= has('gui_running') ? '' : '%{cursormode#CursorMode()}'"
 
   call s:setup_restore_on_vim_leave()
+endfunction
+
+function! s:deactivate(on)
+  execute 'let' a:on "= substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')"
 endfunction
 
 function! s:setup_restore_on_vim_leave()
