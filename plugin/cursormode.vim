@@ -1,0 +1,1 @@
+call cursormode#Activate()
