@@ -26,12 +26,12 @@ function! cursormode#CursorMode()
   let mode = mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
-    call cursormode#SetCursorColorFor(mode)
+    call s:setCursorColorFor(mode)
   endif
   return ''
 endfunction
 
-function! cursormode#SetCursorColorFor(mode)
+function! s:setCursorColorFor(mode)
     let color_map = g:cursor_mode#{g:colors_name}#color_map
     if has_key(color_map, a:mode)
       let color = substitute(color_map[a:mode], '^#', '', '')
@@ -45,4 +45,13 @@ endfunction
 function! cursormode#Activate()
   let &statusline = substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')
   let &statusline .= has('gui_running') ? '' : '%{cursormode#CursorMode()}'
+
+  call s:setup_restore_on_vim_leave()
+endfunction
+
+function! s:setup_restore_on_vim_leave()
+  augroup cursormode
+    autocmd!
+    autocmd VimLeave * call s:setCursorColorFor("n")
+  augroup END
 endfunction
