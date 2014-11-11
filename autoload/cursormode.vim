@@ -43,5 +43,6 @@ function! cursormode#SetCursorColorFor(mode)
 endfunction
 
 function! cursormode#Activate()
+  let &statusline = substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')
   let &statusline .= has('gui_running') ? '' : '%{cursormode#CursorMode()}'
 endfunction
