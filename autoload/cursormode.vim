@@ -32,14 +32,14 @@ function! cursormode#CursorMode()
 endfunction
 
 function! s:setCursorColorFor(mode)
-    let color_map = g:cursor_mode#{g:colors_name}#color_map
-    if has_key(color_map, a:mode)
-      let color = substitute(color_map[a:mode], '^#', '', '')
-      let escape = printf(s:escape_template, s:escape_prefix, color)
-      let command = printf('printf %s > /dev/tty', escape)
+  let color_map = g:cursor_mode#{g:colors_name}#color_map
+  if has_key(color_map, a:mode)
+    let color = substitute(color_map[a:mode], '^#', '', '')
+    let escape = printf(s:escape_template, s:escape_prefix, color)
+    let command = printf('printf %s > /dev/tty', escape)
 
-      silent call system(command)
-    endif
+    silent call system(command)
+  endif
 endfunction
 
 function! cursormode#Activate()
