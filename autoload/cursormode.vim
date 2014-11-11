@@ -51,6 +51,13 @@ function! cursormode#LocalActivate()
 endfunction
 
 function! s:activate(on)
+  if !exists('g:cursor_mode#{g:colors_name}#color_map')
+    echohl WarningMsg
+    echomsg "cursormode: Didn't find a suitable color_map for the current colorscheme"
+    echohl None
+    return
+  endif
+
   call s:deactivate(a:on)
   execute 'let' a:on ".= has('gui_running') ? '' : '%{cursormode#CursorMode()}'"
 

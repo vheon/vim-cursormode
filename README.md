@@ -11,12 +11,15 @@ so I prefer coloring what I'm looking at that usually is where my cursor is.
 Install it as any plugin, using your plugin manager of choice:
 
 [vim-plug][]
+
 `Plug 'vheon/vim-cursormode'`
 
 [Vundle.vim][]
+
 `Plugin 'vheon/vim-cursormode'`
 
-[NeoBundle][]
+[NeoBundle.vim][]
+
 `NeoBundle 'vheon/vim-cursormode'`
 
 Or using [vim-pathogen][]
@@ -24,7 +27,7 @@ Or using [vim-pathogen][]
 Then you have to define a map describing the color you want to use for each mode using this format:
 
 
-```
+```viml
 let cursor_mode#colorscheme_name#color_map = {
       \   "mode":      "#rrggbb",
       ...
@@ -35,7 +38,7 @@ The mode string are the ones returned by `:h mode()`
 
 For example this is a couple of maps that I have in my vimrc:
 
-```
+```viml
 let cursor_mode#solarized#color_map = {
       \   "n":      "#839496",
       \   "i":      "#268bd2",
