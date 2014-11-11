@@ -1,10 +1,10 @@
 # Cursor Mode
 Change the color of the cursor based on the mode we're in for terminal vim.
-At the moment it is just for iTerm2 but should be trivial to add support for Linux terminal.
+At the moment it is just for iTerm2 but should be trivial to add support for Linux terminals.
 
-Why would I want something like this when vim-airline or powerline already color the statusline based on the mode we are in?
-Well specially if we use big screen is not so easy to see it.
-So I prefer coloring what I'm looking at that usually is where my cursor is.
+Why would I want something like this when [vim-airline][] or [powerline][]/[vim-powerline][] already let you color the statusline based on the mode we are in?
+Well specially if we use big screen it is not so easy to see the color of the bottom left corner of the statusline,
+so I prefer coloring what I'm looking at that usually is where my cursor is.
 
 # How to use it
 
@@ -65,8 +65,11 @@ He uses the `guicursor` option which it's for GUI, MSDOW and Win32 console only
 but I use terminal vim on iTerm2 only at the moment so I thoght about sending escape codes to
 iTerm2 to change the cursor color.
 
-[vim-plug][https://github.com/junegunn/vim-plug]
-[Vundle.vim][https://github.com/gmarik/Vundle.vim]
-[NeoBundle.vim][https://github.com/Shougo/neobundle.vim]
-[vim-pathogen][https://github.com/tpope/vim-pathogen]
-[http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/][http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/]
+[vim-airline]: https://github.com/bling/vim-airline 
+[powerline]: https://github.com/Lokaltog/powerline 
+[vim-powerline]: https://github.com/Lokaltog/vim-powerline 
+[vim-plug]: https://github.com/junegunn/vim-plug 
+[Vundle.vim]: https://github.com/gmarik/Vundle.vim 
+[NeoBundle.vim]: https://github.com/Shougo/neobundle.vim 
+[vim-pathogen]: https://github.com/tpope/vim-pathogen 
+[http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/]: http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/ 
