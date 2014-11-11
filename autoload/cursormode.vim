@@ -43,8 +43,16 @@ function! s:setCursorColorFor(mode)
 endfunction
 
 function! cursormode#Activate()
-  let &statusline = substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')
-  let &statusline .= has('gui_running') ? '' : '%{cursormode#CursorMode()}'
+  call s:activate('&statusline')
+endfunction
+
+function! cursormode#LocalActivate()
+  call s:activate('&l:statusline')
+endfunction
+
+function! s:activate(on)
+  execute 'let' a:on "= substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')"
+  execute 'let' a:on ".= has('gui_running') ? '' : '%{cursormode#CursorMode()}'"
 
   call s:setup_restore_on_vim_leave()
 endfunction
