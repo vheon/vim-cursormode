@@ -34,9 +34,11 @@ Or using [vim-pathogen][]
 For setting the color to be used in the different mode you have a couple of options:
 
 * define a variable `g:cursormode_color_map`
-* define a variable with a name like `g:cursormode_{colorscheme}_color_map` 
-i.e. `let g:cursormode_solarized_color_map = {...}`
+* define a variable with a name like `g:cursormode#{colorscheme}#color_map` 
+i.e. `let cursormode#solarized#color_map = {...}`
 This kind of maps are reloaded if you change the colorscheme.
+As you may have noticed this are autoload variable, so you could define them in a
+`autoload/cursormode/{colorscheme}.vim` file. So for example you could ship this file with a colorscheme.
 
 If none of the above are defined we use a default color map using the colors in the default colorscheme in iTerm2
 

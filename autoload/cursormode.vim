@@ -54,9 +54,12 @@ endfunction
 function! s:get_color_map()
   if exists('g:cursormode_color_map')
     return g:cursormode_color_map
-  elseif exists('g:colors_name') && exists('g:cursormode_{g:colors_name}_color_map')
-    return g:cursormode_{g:colors_name}_color_map
-  else
+  endif
+
+  try
+    let map = g:cursormode#{g:colors_name}#color_map
+    return map
+  catch
     return {
           \   "nlight": "#000000",
           \   "ndark":  "#BBBBBB",
@@ -65,7 +68,7 @@ function! s:get_color_map()
           \   "V":      "#BBBB00",
           \   "\<C-V>": "#BB00BB",
           \ }
-  endif
+  endtry
 endfunction
 let s:color_map = s:get_color_map()
 
