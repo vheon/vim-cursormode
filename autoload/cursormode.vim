@@ -80,14 +80,14 @@ function! s:activate(on)
   call s:deactivate(a:on)
   execute 'let' a:on ".= '%{cursormode#CursorMode()}'"
 
-  call s:setup_restore_on_vim_leave()
+  call s:setup_autocmds()
 endfunction
 
 function! s:deactivate(on)
   execute 'let' a:on "= substitute(".a:on.", '%{cursormode#CursorMode()}', '', 'g')"
 endfunction
 
-function! s:setup_restore_on_vim_leave()
+function! s:setup_autocmds()
   augroup cursormode
     autocmd!
     autocmd VimLeave * call s:set_cursor_color_for("n")
