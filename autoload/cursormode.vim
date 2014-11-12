@@ -19,8 +19,9 @@
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 let s:last_mode = ''
+
+let s:tmux_escape_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
 let s:escape_template = '"%s\033]Pl%s\033\\"'
-let s:escape_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
 
 function! cursormode#CursorMode()
   let mode = mode()
@@ -36,7 +37,7 @@ function! s:set_cursor_color_for(mode)
   for mode in [a:mode, a:mode.&background]
     if has_key(s:color_map, mode)
       let color = substitute(s:color_map[mode], '^#', '', '')
-      let escape = printf(s:escape_template, s:escape_prefix, color)
+      let escape = printf(s:escape_template, s:tmux_escape_prefix, color)
       let command = printf('printf %s > /dev/tty', escape)
 
       silent call system(command)
