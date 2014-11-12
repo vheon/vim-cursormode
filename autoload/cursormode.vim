@@ -41,7 +41,7 @@ function! s:set_cursor_color_for(mode)
       let command = printf('printf %s > /dev/tty', escape)
 
       silent call system(command)
-      break
+      return
     endif
   endfor
 endfunction
