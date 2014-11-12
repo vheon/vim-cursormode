@@ -34,6 +34,7 @@ endfunction
 function! s:set_cursor_color_for(mode)
   let color_map = s:get_color_map()
   let mode = a:mode
+  " XXX: update README.md for this feature
   for mode in [a:mode, a:mode.&background]
     if has_key(color_map, mode)
       let color = substitute(color_map[mode], '^#', '', '')
@@ -78,8 +79,6 @@ function! cursormode#LocalActivate()
 endfunction
 
 function! s:activate(on)
-    return
-  endif
   if has('gui_running')
     return
   endif
