@@ -20,8 +20,9 @@
 
 let s:last_mode = ''
 
-let s:tmux_escape_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
-let s:escape_template = '"%s\033]Pl%s\033\\"'
+let s:is_iTerm = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'iTerm.app'
+let s:tmux_escape_prefix = empty('$TMUX') ? '' : '\033Ptmux;\033'
+let s:iTerm_escape_template = '"%s\033]Pl%s\033\\"'
 
 function! cursormode#CursorMode()
   let mode = mode()
@@ -36,14 +37,18 @@ function! s:set_cursor_color_for(mode)
   let mode = a:mode
   for mode in [a:mode, a:mode.&background]
     if has_key(s:color_map, mode)
-      let color = substitute(s:color_map[mode], '^#', '', '')
-      let escape = printf(s:escape_template, s:tmux_escape_prefix, color)
+      let color = s:iTerm_color(s:color_map[mode])
+      let escape = printf(s:iTerm_escape_template, s:tmux_escape_prefix, color)
       let command = printf('printf %s > /dev/tty', escape)
 
       silent call system(command)
       return
     endif
   endfor
+endfunction
+
+function! s:iTerm_color(color)
+  return substitute(a:color, '^#', '', '')
 endfunction
 
 function! s:get_color_map()
