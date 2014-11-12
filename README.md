@@ -34,7 +34,8 @@ Or using [vim-pathogen][]
 For setting the color to be used in the different mode you have a couple of options:
 
 * define a variable `g:cursormode_color_map`
-* define a variable with the format `g:cursormode_{colorscheme}_color_map` like: `let g:cursormode_solarized_color_map = {...}`
+* define a variable with a name like `g:cursormode_{colorscheme}_color_map` 
+i.e. `let g:cursormode_solarized_color_map = {...}`
 This kind of maps are reloaded if you change the colorscheme.
 
 If none of the above are defined we use a default color map using the colors in the default colorscheme in iTerm2
@@ -44,18 +45,19 @@ If none of the above are defined we use a default color map using the colors in 
 Every color map is in the form:
 
 ```viml
-let cursor_mode#colorscheme_name#color_map = {
+let cursormode_color_map = {
       \   "mode":      "#rrggbb",
       ...
       \ }
 ```
 
 The mode string are the ones returned by `:h mode()`
+The colors are in the form of `#rrggbb`.
 
 For example this is a couple of maps that I have in my vimrc:
 
 ```viml
-let cursor_mode#gotham#color_map = {
+let cursormode_gotham_color_map = {
       \   "n":      "#99d1ce",
       \   "i":      "#edb443",
       \   "v":      "#d26937",
@@ -63,8 +65,6 @@ let cursor_mode#gotham#color_map = {
       \   "\<C-V>": "#4e5166",
       \ }
 ```
-
-The colors are in the form of `#rrggbb`.
 
 If you want to specify a color for a mode based on the `background` you can do it like so:
 
