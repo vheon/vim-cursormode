@@ -26,17 +26,17 @@ function! cursormode#CursorMode()
   let mode = mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
-    call s:setCursorColorFor(mode)
+    call s:set_cursor_color_for(mode)
   endif
   return ''
 endfunction
 
-function! s:setCursorColorFor(mode)
   let color_map = g:cursor_mode#{g:colors_name}#color_map
   if has_key(color_map, a:mode)
     let color = substitute(color_map[a:mode], '^#', '', '')
     let escape = printf(s:escape_template, s:escape_prefix, color)
     let command = printf('printf %s > /dev/tty', escape)
+function! s:set_cursor_color_for(mode)
 
     silent call system(command)
   endif
@@ -74,6 +74,6 @@ endfunction
 function! s:setup_restore_on_vim_leave()
   augroup cursormode
     autocmd!
-    autocmd VimLeave * call s:setCursorColorFor("n")
+    autocmd VimLeave * call s:set_cursor_color_for("n")
   augroup END
 endfunction
