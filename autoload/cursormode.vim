@@ -68,7 +68,7 @@ function! s:activate(on)
 endfunction
 
 function! s:deactivate(on)
-  execute 'let' a:on "= substitute(&statusline, '%{cursormode#CursorMode()}', '', 'g')"
+  execute 'let' a:on "= substitute(".a:on.", '%{cursormode#CursorMode()}', '', 'g')"
 endfunction
 
 function! s:setup_restore_on_vim_leave()
