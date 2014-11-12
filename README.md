@@ -85,6 +85,7 @@ let cursormode_solarized_color_map = {
 # Known Issues
 
 * At the moment it works only in iTerm2
+* Sporadically the view is moved, so for example I enter Insert mode and the current line is moved at the top as if I typed `zt`. I didn't find a way of debug this thing, so any input or PR are welcome.
 
 # Credits
 
