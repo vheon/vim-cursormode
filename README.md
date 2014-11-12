@@ -51,22 +51,23 @@ let cursormode_color_map = {
       \ }
 ```
 
-The mode string are the ones returned by `:h mode()`
-The colors are in the form of `#rrggbb`.
+The mode string are the ones returned by `:h mode()` and the colors are in the form of `#rrggbb`.
 
-For example this is a couple of maps that I have in my vimrc:
+For example this is a possible map:
 
 ```viml
-let cursormode_gotham_color_map = {
-      \   "n":      "#99d1ce",
-      \   "i":      "#edb443",
-      \   "v":      "#d26937",
-      \   "V":      "#c23127",
-      \   "\<C-V>": "#4e5166",
+let cursormode_color_map = {
+      \   "n":      "#FFFFFF",
+      \   "i":      "#0000FF",
+      \   "v":      "#00FF00",
+      \   "V":      "#FF0000",
+      \   "\<C-V>": "#FFFF00",
       \ }
 ```
 
-If you want to specify a color for a mode based on the `background` you can do it like so:
+If you want to specify a color for a mode based on the `background` you can do it appending the background string to the mode
+
+For example here is my solarized map with the normal mode color based on the background:
 
 ```viml
 let cursormode_solarized_color_map = {
