@@ -33,7 +33,6 @@ endfunction
 
 function! s:set_cursor_color_for(mode)
   let mode = a:mode
-  " XXX: update README.md for this feature
   for mode in [a:mode, a:mode.&background]
     if has_key(s:color_map, mode)
       let color = substitute(s:color_map[mode], '^#', '', '')
