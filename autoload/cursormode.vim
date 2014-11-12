@@ -57,9 +57,12 @@ function! s:activate(on)
     echohl None
     return
   endif
+  if has('gui_running')
+    return
+  endif
 
   call s:deactivate(a:on)
-  execute 'let' a:on ".= has('gui_running') ? '' : '%{cursormode#CursorMode()}'"
+  execute 'let' a:on ".= '%{cursormode#CursorMode()}'"
 
   call s:setup_restore_on_vim_leave()
 endfunction
