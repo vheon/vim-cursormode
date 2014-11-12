@@ -31,14 +31,41 @@ function! cursormode#CursorMode()
   return ''
 endfunction
 
-  let color_map = g:cursor_mode#{g:colors_name}#color_map
-  if has_key(color_map, a:mode)
-    let color = substitute(color_map[a:mode], '^#', '', '')
-    let escape = printf(s:escape_template, s:escape_prefix, color)
-    let command = printf('printf %s > /dev/tty', escape)
 function! s:set_cursor_color_for(mode)
+  let color_map = s:get_color_map()
+  let mode = a:mode
+  for mode in [a:mode, a:mode.&background]
+    if has_key(color_map, mode)
+      let color = substitute(color_map[mode], '^#', '', '')
+      let escape = printf(s:escape_template, s:escape_prefix, color)
+      let command = printf('printf %s > /dev/tty', escape)
 
-    silent call system(command)
+      silent call system(command)
+      break
+    endif
+  endfor
+endfunction
+
+function! s:get_color_map()
+  " XXX: this map should be calculated upfront
+  "      * Set an autocmd for Colorscheme so we can detect if a
+  "            g:cursormode_{colorscheme}_color_map is available
+  "      * Make a note about creating map on the fly. If we set up the map in
+  "            the Activate function then since is idenpotent would be possible
+  "            to reload it by calling the function again
+  if exists('g:cursormode_color_map')
+    return g:cursormode_color_map
+  elseif exists('g:colors_name') && exists('g:cursormode_{g:colors_name}_color_map')
+    return g:cursormode_{g:colors_name}_color_map
+  else
+    return {
+          \   "nlight": "#000000",
+          \   "ndark":  "#BBBBBB",
+          \   "i":      "#0000BB",
+          \   "v":      "#FF5555",
+          \   "V":      "#BBBB00",
+          \   "\<C-V>": "#BB00BB",
+          \ }
   endif
 endfunction
 
@@ -51,10 +78,6 @@ function! cursormode#LocalActivate()
 endfunction
 
 function! s:activate(on)
-  if !exists('g:cursor_mode#{g:colors_name}#color_map')
-    echohl WarningMsg
-    echomsg "cursormode: Didn't find a suitable color_map for the current colorscheme"
-    echohl None
     return
   endif
   if has('gui_running')
