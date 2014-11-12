@@ -32,12 +32,11 @@ function! cursormode#CursorMode()
 endfunction
 
 function! s:set_cursor_color_for(mode)
-  let color_map = s:get_color_map()
   let mode = a:mode
   " XXX: update README.md for this feature
   for mode in [a:mode, a:mode.&background]
-    if has_key(color_map, mode)
-      let color = substitute(color_map[mode], '^#', '', '')
+    if has_key(s:color_map, mode)
+      let color = substitute(s:color_map[mode], '^#', '', '')
       let escape = printf(s:escape_template, s:escape_prefix, color)
       let command = printf('printf %s > /dev/tty', escape)
 
@@ -48,12 +47,6 @@ function! s:set_cursor_color_for(mode)
 endfunction
 
 function! s:get_color_map()
-  " XXX: this map should be calculated upfront
-  "      * Set an autocmd for Colorscheme so we can detect if a
-  "            g:cursormode_{colorscheme}_color_map is available
-  "      * Make a note about creating map on the fly. If we set up the map in
-  "            the Activate function then since is idenpotent would be possible
-  "            to reload it by calling the function again
   if exists('g:cursormode_color_map')
     return g:cursormode_color_map
   elseif exists('g:colors_name') && exists('g:cursormode_{g:colors_name}_color_map')
@@ -69,6 +62,7 @@ function! s:get_color_map()
           \ }
   endif
 endfunction
+let s:color_map = s:get_color_map()
 
 function! cursormode#Activate()
   call s:activate('&statusline')
@@ -97,5 +91,6 @@ function! s:setup_restore_on_vim_leave()
   augroup cursormode
     autocmd!
     autocmd VimLeave * call s:set_cursor_color_for("n")
+    autocmd Colorscheme * let s:color_map = s:get_color_map()
   augroup END
 endfunction

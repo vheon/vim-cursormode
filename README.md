@@ -12,20 +12,36 @@ Install it as any plugin, using your plugin manager of choice:
 
 [vim-plug][]
 
-`Plug 'vheon/vim-cursormode'`
+```viml
+Plug 'vheon/vim-cursormode'
+```
 
 [Vundle.vim][]
 
-`Plugin 'vheon/vim-cursormode'`
+```viml
+Plugin 'vheon/vim-cursormode'
+```
 
 [NeoBundle.vim][]
 
-`NeoBundle 'vheon/vim-cursormode'`
+```viml
+NeoBundle 'vheon/vim-cursormode'
+```
 
 Or using [vim-pathogen][]
 
-Then you have to define a map describing the color you want to use for each mode using this format:
+# Cursor colors
+For setting the color to be used in the different mode you have a couple of options:
 
+* define a variable `g:cursormode_color_map`
+* define a variable with the format `g:cursormode_{colorscheme}_color_map` like: `let g:cursormode_solarized_color_map = {...}`
+This kind of maps are reloaded if you change the colorscheme.
+
+If none of the above are defined we use a default color map using the colors in the default colorscheme in iTerm2
+
+## Color map format
+
+Every color map is in the form:
 
 ```viml
 let cursor_mode#colorscheme_name#color_map = {
@@ -39,13 +55,6 @@ The mode string are the ones returned by `:h mode()`
 For example this is a couple of maps that I have in my vimrc:
 
 ```viml
-let cursor_mode#solarized#color_map = {
-      \   "n":      "#839496",
-      \   "i":      "#268bd2",
-      \   "v":      "#cb4b16",
-      \   "V":      "#b58900",
-      \   "\<C-V>": "#6c71c4",
-      \ }
 let cursor_mode#gotham#color_map = {
       \   "n":      "#99d1ce",
       \   "i":      "#edb443",
@@ -56,6 +65,19 @@ let cursor_mode#gotham#color_map = {
 ```
 
 The colors are in the form of `#rrggbb`.
+
+If you want to specify a color for a mode based on the `background` you can do it like so:
+
+```viml
+let cursormode_solarized_color_map = {
+      \   "nlight": "#657b83",
+      \   "ndark":  "#839496",
+      \   "i":      "#268bd2",
+      \   "v":      "#cb4b16",
+      \   "V":      "#b58900",
+      \   "\<C-V>": "#6c71c4",
+      \ }
+```
 
 # Known Issues
 
@@ -68,11 +90,11 @@ He uses the `guicursor` option which it's for GUI, MSDOW and Win32 console only
 but I use terminal vim on iTerm2 only at the moment so I thoght about sending escape codes to
 iTerm2 to change the cursor color.
 
-[vim-airline]: https://github.com/bling/vim-airline 
-[powerline]: https://github.com/Lokaltog/powerline 
-[vim-powerline]: https://github.com/Lokaltog/vim-powerline 
-[vim-plug]: https://github.com/junegunn/vim-plug 
-[Vundle.vim]: https://github.com/gmarik/Vundle.vim 
-[NeoBundle.vim]: https://github.com/Shougo/neobundle.vim 
-[vim-pathogen]: https://github.com/tpope/vim-pathogen 
-[http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/]: http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/ 
+[vim-airline]: https://github.com/bling/vim-airline
+[powerline]: https://github.com/Lokaltog/powerline
+[vim-powerline]: https://github.com/Lokaltog/vim-powerline
+[vim-plug]: https://github.com/junegunn/vim-plug
+[Vundle.vim]: https://github.com/gmarik/Vundle.vim
+[NeoBundle.vim]: https://github.com/Shougo/neobundle.vim
+[vim-pathogen]: https://github.com/tpope/vim-pathogen
+[http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/]: http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
