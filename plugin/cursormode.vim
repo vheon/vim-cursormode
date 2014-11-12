@@ -18,7 +18,7 @@
 " TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-if exists('g:loaded_cursormode')
+if exists('g:loaded_cursormode') || has('gui_running')
   finish
 endif
 let g:loaded_cursormode = 1
