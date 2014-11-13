@@ -1,6 +1,6 @@
 # Cursor Mode
 Change the color of the cursor based on the mode we're in for terminal vim.
-At the moment it is just for iTerm2 but should be trivial to add support for Linux terminals.
+At the moment it is tested for iTerm2 only but basic implementation for xterm is there.
 
 Why would I want something like this when [vim-airline][] or [powerline][]/[vim-powerline][] already let you color the statusline based on the mode we are in?
 Well specially if we use big screen it is not so easy to see the color of the bottom left corner of the statusline,
@@ -84,7 +84,7 @@ let cursormode_solarized_color_map = {
 
 # Known Issues
 
-* At the moment it works only in iTerm2
+* At the moment only tested in iTerm2.
 * Sporadically the view is moved, so for example I enter Insert mode and the current line is moved at the top as if I typed `zt`. I didn't find a way of debug this thing, so any input or PR are welcome.
 
 # Credits
