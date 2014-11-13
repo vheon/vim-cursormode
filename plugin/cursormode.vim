@@ -54,7 +54,7 @@ function! s:set_cursor_color_for(mode)
       try
         let save_shelltemp = &shelltemp
         set noshelltemp
-        silent call system(s:build_command(s:color_map[mode]))
+        noautocmd silent call system(s:build_command(s:color_map[mode]))
         return
       finally
         let &shelltemp = save_shelltemp
