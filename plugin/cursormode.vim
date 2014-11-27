@@ -34,9 +34,12 @@ set cpo&vim
 
 let s:last_mode = ''
 
-let s:tmux_escape_prefix = empty('$TMUX') ? '' : '\033Ptmux;\033'
-let s:iTerm_escape_template = '"%s\033]Pl%s\033\\"'
-let s:xterm_escape_template = '"%s\033]12;%s\007"'
+function! cursormode#tmux_escape(escape)
+  return '\033Ptmux;'.substitute(a:escape, '\\033', '\\033\\033', 'g').'\033\\'
+endfunction
+
+let s:iTerm_escape_template = '\033]Pl%s\033\\'
+let s:xterm_escape_template = '\033]12;%s\007'
 
 function! cursormode#CursorMode()
   let mode = mode()
@@ -72,8 +75,9 @@ function! s:build_command(color)
     let escape_template = s:xterm_escape_template
   endif
 
-  let escape = printf(escape_template, s:tmux_escape_prefix, color)
-  return printf('printf %s > /dev/tty', escape)
+  let escape = printf(escape_template, color)
+  let escape = cursormode#tmux_escape(escape)
+  return "printf '".escape."' > /dev/tty"
 endfunction
 
 function! s:get_color_map()
