@@ -76,7 +76,9 @@ function! s:build_command(color)
   endif
 
   let escape = printf(escape_template, color)
-  let escape = cursormode#tmux_escape(escape)
+  if exists('$TMUX')
+    let escape = cursormode#tmux_escape(escape)
+  endif
   return "printf '".escape."' > /dev/tty"
 endfunction
 
