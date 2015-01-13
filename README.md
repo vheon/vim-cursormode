@@ -1,11 +1,11 @@
 # Cursor Mode
 Change the color of the cursor based on the mode we're in for terminal vim.
-At the moment it is tested for iTerm2 only but basic implementation for xterm is there.
+At the moment it is tested for iTerm2 only (because is the only thing that I use) but basic implementation for xterm/urxvt is there and should work.
 
 # Why would I want this?
 
 Vim already has `:h 'showmode'` but I like colors to distinguish things.
-Other plugin offer something colored like [vim-airline][] or [powerline][]/[vim-powerline][] that let you color part of the statusline based on the mode we are in but specially if we use big screen it is not so easy to see the color of the bottom left corner of the statusline,
+Other plugin offer something colored like [vim-airline][] or [powerline][]/[vim-powerline][] that let you color part of the statusline based on the mode we are in but specially if we have big screen it is not so easy to see the color in the bottom left corner of the statusline,
 so I prefer coloring what I'm looking at that usually is where my cursor is.
 
 # How to use it
