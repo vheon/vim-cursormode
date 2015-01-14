@@ -55,12 +55,16 @@ function! s:set_cursor_color_for(mode)
   for mode in [a:mode, a:mode.&background]
     if has_key(s:color_map, mode)
       try
+        let save_eventignore = &eventignore
+        set eventignore=all
         let save_shelltemp = &shelltemp
         set noshelltemp
-        noautocmd silent call system(s:build_command(s:color_map[mode]))
+
+        silent call system(s:build_command(s:color_map[mode]))
         return
       finally
         let &shelltemp = save_shelltemp
+        let &eventignore = save_eventignore
       endtry
     endif
   endfor
