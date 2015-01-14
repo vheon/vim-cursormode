@@ -105,9 +105,9 @@ function! s:get_color_map()
           \ }
   endtry
 endfunction
-let s:color_map = s:get_color_map()
 
 function! cursormode#Activate()
+  let s:color_map = s:get_color_map()
   call s:activate('&statusline')
 endfunction
 
@@ -118,23 +118,18 @@ endfunction
 function! s:activate(on)
   call s:deactivate(a:on)
   execute 'let' a:on ".= '%{cursormode#CursorMode()}'"
-
-  call s:setup_autocmds()
 endfunction
 
 function! s:deactivate(on)
   execute "let" a:on "= substitute(".a:on.", '%{cursormode#CursorMode()}', '', 'g')"
 endfunction
 
-function! s:setup_autocmds()
-  augroup cursormode
-    autocmd!
-    autocmd VimLeave * call s:set_cursor_color_for("n")
-    autocmd Colorscheme * let s:color_map = s:get_color_map()
-  augroup END
-endfunction
-
-call cursormode#Activate()
+augroup cursormode
+  autocmd!
+  autocmd VimLeave * call s:set_cursor_color_for("n")
+  autocmd VimEnter * call cursormode#Activate()
+  autocmd Colorscheme * call cursormode#Activate()
+augroup END
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
