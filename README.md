@@ -55,7 +55,9 @@ let cursormode_color_map = {
       \ }
 ```
 
-The mode string are the ones returned by `:h mode()` and the colors are in the form of `#rrggbb`.
+The colors are in the form of `#rrggbb`.
+The mode string is the return value of the function stored in
+`g:cursormode_mode_func` (default is `:h mode()`).
 
 For example this is a possible map:
 
@@ -66,6 +68,33 @@ let cursormode_color_map = {
       \   "v":      "#00FF00",
       \   "V":      "#FF0000",
       \   "\<C-V>": "#FFFF00",
+      \ }
+```
+
+If you change the mode function, you can be more precise and do mappings like that:
+
+```viml
+function! cursormode_get_mode()
+    let l:mode = mode()
+    if l:mode ==# 'i' && (&readonly || ! &modifiable)
+        return 'i_readonly'
+    endif
+    if l:mode ==# 'i' && (&paste)
+        return 'i_paste'
+    endif
+    return l:mode
+endfunction
+
+let cursormode_mode_func = 'cursormode_get_mode'
+
+let cursormode_color_map = {
+      \   "n":          "#FFFFFF",
+      \   "i":          "#0000FF",
+      \   "i_paste":    "#00FFFF",
+      \   "i_readonly": "#FF00FF",
+      \   "v":          "#00FF00",
+      \   "V":          "#FF0000",
+      \   "\<C-V>":     "#FFFF00",
       \ }
 ```
 
